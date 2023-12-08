@@ -1,0 +1,138 @@
+<div class="container-fluid">
+<!--  <ng-container *ngIf="assignmentL | async as listAssignment ; else failureOrLading">-->
+    <!-----Page Heading------->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Demande de mission</h1>
+      <a class="d-none d-sm-inline-block btn btn-primary shadow-sm" href="#">
+        <i class="fas fa-download fa-sm text-white-50"></i>
+        Generate Report
+      </a>
+    </div>
+
+    <!-----------Content row ---------->
+    <div class="row">
+      <div class="col-xl-12 col-lg-6">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Nouvelle Mission</h6></div>
+
+          <div class="card-body ">
+            <form [formGroup]="newAssignmentFormGroup" (ngSubmit)="handleSaveAssignment()">
+              <!---- Label Objet---->
+              <div class="mb-2">
+                <label class="form-check-label">Objet :</label>
+                <input type="text" formControlName="assignmentPattern" class="form-control">
+                <span class="text-danger"
+                      *ngIf="newAssignmentFormGroup.controls['assignmentPattern'].touched
+                  && newAssignmentFormGroup.controls['assignmentPattern'].errors
+                  && newAssignmentFormGroup.controls['assignmentPattern'].errors!['required']">
+                  Objet is required
+                </span>
+              </div>
+              <!---- Label Chantier---->
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class=" mb-2 mr-1" >
+                    <label class="form-check-label">Chantier:</label>
+                    <ng-multiselect-dropdown
+                      [placeholder]="'Selectionner un ou plusieurs chantiers'"
+                      [settings]="dropdownSettingsWorksite"
+                      [data]="dropdownListWorksite"
+                      (onSelect)="onItemSelectWorksite($event)"
+                      formControlName="worksiteDTOS">
+                    </ng-multiselect-dropdown>
+                  </div>
+                </div>
+                <!---- Label type---->
+               <div class="col-xl-6">
+                 <div class=" mb-2 mr-1">
+                   <label class="form-check-label">Type:</label>
+                   <select class="form-select form-control " formControlName="type"  (change)="selectChangeHandler($event)"  >
+                     <option [ngValue]="null">Selectionner</option>
+                     <option *ngFor="let type of missionType | async" [ngValue]="type" >{{type.label}}</option>
+                   </select>
+                 </div>
+               </div>
+               </div>
+
+
+              <!----------datepicker-range-popup----->
+              <div class="row">
+               <ngbd-datepicker-range-popup (dateDep)="receivingDateDep($event)" (dateRet)="receivingDateRet($event)" ></ngbd-datepicker-range-popup>
+
+
+              </div>
+              <!----------end datepicker-range-popup------>
+
+              <!---- Moyen de transport ---->
+              <div class="mb-2">
+                <label class="form-check-label">Moyen de Transport:</label>
+                <select class="form-select form-control " formControlName="movingMeans"  (change)="selectChangeHandler($event)"  >
+                  <option [ngValue]="null">Selectionner</option>
+                  <option *ngFor="let mm of movingMeanEnum |keyvalue" [ngValue]="mm.key" >{{mm.value}}</option>
+                </select>
+                <span class="text-danger"
+                      *ngIf="newAssignmentFormGroup.controls['assignmentPattern'].touched
+                  && newAssignmentFormGroup.controls['assignmentPattern'].errors
+                  && newAssignmentFormGroup.controls['assignmentPattern'].errors!['required']">
+                  Objet is required
+                </span>
+              </div>
+              <!---- Label Chantier---->
+
+                <div class="col-xl-12" *ngIf="selectedMovingMeans=='4: VEHICLE' " >
+                  <div class=" mb-2 " >
+                    <label class="form-check-label">Vehicule(s):</label>
+                    <ng-multiselect-dropdown
+                      [placeholder]="'Selectionner un ou plusieurs vehicules'"
+                      [settings]="dropdownSettingsVehicle"
+                      [data]="dropdownListVehicule"
+                      (onSelect)="onItemSelectVehicle($event)"
+                      formControlName="vehicleDTOS">
+                    </ng-multiselect-dropdown>
+                  </div>
+                </div>
+
+              <!---- Label participant---->
+
+              <div class="col-xl-12"  >
+                <div class=" mb-2 " >
+                  <label class="form-check-label">Participant(s):</label>
+                  <ng-multiselect-dropdown
+                    [placeholder]="'Selectionner un ou plusieurs empolyés'"
+                    [settings]="dropdownSettingsPersonal"
+                    [data]="dropdownListPersonal"
+                    (onSelect)="onItemSelectPersonal($event)"
+                    formControlName="personalDTOS">
+                  </ng-multiselect-dropdown>
+                </div>
+                {{selectPersonals}}
+              </div>
+
+
+              <div class="d-grid">
+                <button  class="btn btn-primary">Save</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--  </ng-container>
+  <ng-template #failureOrLading class="text-danger">
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+    </ng-template>
+  </ng-template>-->
+
+</div>
+

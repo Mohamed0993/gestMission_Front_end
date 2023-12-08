@@ -1,0 +1,86 @@
+
+  <!---- sidebar start--->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <div class="sidebar-brand-icon rotate-n-15">
+        <fa-icon [icon]="faLaughWink"></fa-icon>
+      </div>
+      <div class="sidebar-brand-text mx-3"> ALD ENTREPRISE </div>
+    </a>
+    <!-----Section Divider ------>
+    <hr class="sidebar-divider my-0">
+    <!------ Nav Item Dashboard------->
+    <li class="nav-item active" >
+      <a class="nav-link" routerLink="/admin/dashboard" *ngIf="authService.hasRole(['ADMIN'])">
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+      </a>
+      <!------- Section Divider ------>
+      <hr class="sidebar-divider">
+    </li>
+    <!------- Section Heading ------->
+    <div class="sidebar-heading">
+      INTERFACE
+    </div>
+    <!---- Nav Item - Mission Collapse Menu ----->
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="#"  data-bs-toggle="collapse"  data-bs-target="#collapseTwo"
+         aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-clipboard-list"></i>
+        <span>Ordre de mission</span>
+      </a>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Mission components :</h6>
+          <a class="collapse-item" routerLink="/admin/assignments">Nouveau ordre de mission</a>
+          <a *ngIf="!isOther()" class="collapse-item"  routerLink="/admin/assignment-valide">Mission en attente</a>
+          <a class="collapse-item" routerLink="/admin/demande-mission">Mes demandes de Mission</a>
+        </div>
+      </div>
+    </li>
+
+    <!------- Section Divider ------>
+    <hr class="sidebar-divider">
+
+    <!---- Nav Item - Administration Collapse Menu ----->
+    <li class="nav-item" *ngIf="authService.hasRole(['ADMIN'])" >
+      <a class="nav-link collapsed"  href="#"  data-bs-toggle="collapse"  data-bs-target="#collapseAdministration"
+         aria-expanded="true" aria-controls="collapseAdministration">
+        <i class="fas fa-inbox"></i>
+        <span>Administration</span>
+      </a>
+      <div id="collapseAdministration" class="collapse" aria-labelledby="headingAdministration" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Administration components :</h6>
+          <a class="collapse-item" routerLink="/admin/personals">
+            <i class="fa-solid fa-user-alt"></i>
+            <span> Employés</span>
+          </a>
+          <a class="collapse-item" routerLink="/admin/vehicles">
+            <i class="fa-solid fa-car-alt"></i>
+            <span> Vehicules</span>
+          </a>
+          <a class="collapse-item" routerLink="/admin/worksites">Chantier</a>
+          <a class="collapse-item" routerLink="/admin/towns">
+            Villes
+          </a>
+          <a class="collapse-item" routerLink="/admin/services">Services</a>
+          <a class="collapse-item" routerLink="/admin/types">Types</a>
+          <a class="collapse-item" routerLink="/admin/taux">Taux</a>
+        </div>
+      </div>
+    </li>
+    <!------- Section Divider ------>
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!---------Sidebar-Toggler (Sidebar)--------->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"> </button>
+    </div>
+
+  </ul>
+
+
+
+  <!-----Sidebar End-------->
+

@@ -1,0 +1,206 @@
+<div class="container-fluid">
+  <ng-container *ngIf="personal | async as list ; else failureOrLading">
+    <!-----Page Heading------->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Gestion du personnel</h1>
+      <a class="d-none d-sm-inline-block btn btn-primary shadow-sm" href="#">
+        <i class="fas fa-download fa-sm text-white-50"></i>
+        Generate Report
+      </a>
+    </div>
+
+    <!-----------Content row ---------->
+    <div class="row">
+      <div class="col-xl-7 col-lg-6">
+        <div *ngIf="errorMessage" class="text-danger">
+          {{errorMessage }}
+        </div>
+        <div class="card shadow mb-4" *ngIf="personal">
+
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary" >Liste du personnel</h6>
+          </div>
+          <div class="card-body" >
+            <div *ngIf="searchFormGroup">
+
+              <form action="" [formGroup]="searchFormGroup" (ngSubmit)="handleSearchPersonal()">
+                <div class="input-group">
+                  <label class="input-group-text" >Keyword :</label>
+                  <input type="text" formControlName="keyword" class="form-control">
+                  <button class="btn btn-info">
+                    <i class="fas fa-search fa-sm"></i>
+
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Matricule</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let p of personal | async">
+                <td>{{p.id}}</td>
+                <td>{{p.personalMatricule}}</td>
+                <td>{{p.personalFullName}}</td>
+                <td>{{p.personalName}}</td>
+
+                <td>
+                  <button (click)="handleDeletePersonal(p)" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-xl-5 col-lg-6">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Nouvel Employé</h6></div>
+
+          <div class="card-body ">
+            <form [formGroup]="newPersonalFormGroup" (ngSubmit)="handleSavePersonal()">
+              <!---- Label Civilite---->
+              <div class="mb-2">
+                <label class="form-check-label">Civilité:</label>
+                <select class="form-select form-control " formControlName="civilite" >
+                  <option [ngValue]="null">Selectionner</option>
+                  <option *ngFor="let civ of civiliteEnum |keyvalue" [ngValue]="civ.key" >{{civ.value}}</option>
+                </select>
+              </div>
+              <!---- Label Name---->
+              <div class="mb-2">
+              <label class="form-check-label">Matricule:</label>
+              <input type="text" formControlName="personalMatricule" class="form-control">
+              <span class="text-danger"
+                    *ngIf="newPersonalFormGroup.controls['personalMatricule'].touched
+                  && newPersonalFormGroup.controls['personalMatricule'].errors
+                  && newPersonalFormGroup.controls['personalMatricule'].errors!['required']">
+                  Matricule is required
+                </span>
+              </div>
+              <!---- Label Last Name---->
+              <div class="mb-2">
+                <label class="form-check-label">Nom:</label>
+                <input type="text" formControlName="personalName" class="form-control">
+                <span class="text-danger"
+                      *ngIf="newPersonalFormGroup.controls['personalName'].touched
+                  && newPersonalFormGroup.controls['personalName'].errors
+                  && newPersonalFormGroup.controls['personalName'].errors!['required']">
+                  Nom is required
+                </span>
+              </div>
+              <!---- Label Last Name---->
+              <div class="mb-2">
+                <label class="form-check-label">Prenom:</label>
+                <input type="text" formControlName="personalFullName" class="form-control">
+                <span class="text-danger"
+                      *ngIf="newPersonalFormGroup.controls['personalFullName'].touched
+                  && newPersonalFormGroup.controls['personalFullName'].errors
+                  && newPersonalFormGroup.controls['personalFullName'].errors!['required']">
+                  Prenom is required
+                </span>
+              </div>
+              <!---- Label Function---->
+              <div class="mb-2">
+                <label class="form-check-label">Fonction :</label>
+                <input type="text" formControlName="fonction" class="form-control">
+                <span class="text-danger"
+                      *ngIf="newPersonalFormGroup.controls['fonction'].touched
+                  && newPersonalFormGroup.controls['fonction'].errors
+                  && newPersonalFormGroup.controls['fonction'].errors!['required']">
+                  Nom is required
+                </span>
+              </div>
+              <!-----dropdown Sexe------>
+              <div class="mb-2">
+                <label  class="form-check-label">Sexe</label>
+                <select class="form-select form-control " formControlName="sex"   >
+                  <option [ngValue]="null">Selectionner</option>
+                  <option *ngFor="let sex of sexEnum | keyvalue" [ngValue]="sex.key" >{{sex.value}}</option>
+                </select>
+              </div>
+              <!---- Label Contact---->
+              <div class="mb-2">
+                <label class="form-check-label">Contact :</label>
+                <input type="text" formControlName="personalContact" class="form-control">
+                <span class="text-danger"
+                      *ngIf="newPersonalFormGroup.controls['personalContact'].touched
+                  && newPersonalFormGroup.controls['personalContact'].errors
+                  && newPersonalFormGroup.controls['personalContact'].errors!['required']">
+                  Contact is required
+                </span>
+              </div>
+              <div class="mb-2">
+                <label  class="form-check-label" >Directeur:</label>
+                <div class="form-check">
+                  <input class=" form-check-input " type="checkbox" value="" id="flexCheckDefault" [value]=""
+                         [checked]="false" ng-click="checkAll($event.target.chekcked" formControlName="director">
+                  <label class="form-check-label" for="flexCheckDefault"> Oui</label>
+                </div>
+
+
+              </div>
+              <!-----dropdown Grade------>
+              <div class="mb-2">
+                <label  class="form-check-label">Grade</label>
+                <select class="form-select form-control " formControlName="gradeDTO"   >
+                  <option [ngValue]="null">Selectionner</option>
+                  <option *ngFor="let grade of grades | async" [ngValue]="grade" >{{grade.label}}</option>
+                </select>
+              </div>
+              <!-----dropdown Service------>
+              <div class="mb-2">
+
+                <label  class="form-check-label">Service</label>
+                <select class="form-select form-control " formControlName="serviceDTO" >
+                  <option [ngValue]="null">Selectionner</option>
+                  <option *ngFor="let s of service | async"   [ngValue]="s">{{s.serviceName}}</option>
+                </select>
+
+              </div>
+              <!---- Label Email---->
+              <div class="mb-2">
+                <label class="form-check-label">Email :</label>
+                <input type="text" formControlName="email" class="form-control">
+                <span class="text-danger"
+                      *ngIf="newPersonalFormGroup.controls['email'].touched
+                  && newPersonalFormGroup.controls['email'].errors
+                  && newPersonalFormGroup.controls['email'].errors!['required']">
+                  Email is required
+                </span>
+              </div>
+              <div class="d-grid">
+                <button  class="btn btn-primary">Save</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+  <ng-template #failureOrLading class="text-danger">
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      Loading ...
+    </ng-template>
+  </ng-template>
+
+</div>

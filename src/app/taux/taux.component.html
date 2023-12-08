@@ -1,0 +1,157 @@
+<div class="container-fluid">
+
+    <!-----Page Heading------->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Configuration des taux</h1>
+      <a class="d-none d-sm-inline-block btn btn-primary shadow-sm" href="#">
+        <i class="fas fa-download fa-sm text-white-50"></i>
+        Generate Report
+      </a>
+    </div>
+
+    <!-----------Content row ---------->
+    <div class="row">
+      <div class="col-xl-12 col-lg-6">
+        <div *ngIf="errorMessage" class="text-danger">
+          {{errorMessage }}
+        </div>
+
+      <div class="col-xl-12 col-lg-6">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Configuration des taux</h6></div>
+
+          <div class="card-body ">
+            <form [formGroup]="newTauxGroup" (ngSubmit)="handleSaveTaux()">
+              <div class="form-group-attached">
+                <div class="row clearfix">
+                  <div class="col-sm-6">
+                    <div class="form-group form-group-default ">
+                      <label class="form-check-label">Taux Déjeuner et Diner:</label>
+                      <input type="text" formControlName="rateDejounerDiner" class="form-control">
+                      <span class="text-danger"
+                            *ngIf="newTauxGroup.controls['rateDejounerDiner'].touched
+                        && newTauxGroup.controls['rateDejounerDiner'].errors
+                        && newTauxGroup.controls['rateDejounerDiner'].errors!['required']">
+                        Matricule is required
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                      <label class="form-check-label">Taux Déjeuner et Diner Directeur:</label>
+                      <input type="text" formControlName="rateDejounerDinerDirec" class="form-control">
+                      <span class="text-danger" *ngIf="newTauxGroup.controls['rateDejounerDinerDirec'].touched
+                        && newTauxGroup.controls['rateDejounerDinerDirec'].errors
+                        && newTauxGroup.controls['rateDejounerDinerDirec'].errors!['required']">
+                        Matricule is required
+                    </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                      <label class="form-check-label">Taux Petit Déjeuner:</label>
+                      <input type="text" formControlName="ratePetitDejouner" class="form-control">
+                      <span class="text-danger"
+                            *ngIf="newTauxGroup.controls['ratePetitDejouner'].touched
+                        && newTauxGroup.controls['ratePetitDejouner'].errors
+                        && newTauxGroup.controls['ratePetitDejouner'].errors!['required']">
+                        Matricule is required
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                      <label class="form-check-label">Taux Petit Déjeuner Directeur:</label>
+                      <input type="text" formControlName="ratePetitDejounerDirec" class="form-control">
+                      <span class="text-danger" *ngIf="newTauxGroup.controls['ratePetitDejounerDirec'].touched
+                        && newTauxGroup.controls['ratePetitDejounerDirec'].errors
+                        && newTauxGroup.controls['ratePetitDejounerDirec'].errors!['required']">
+                        Matricule is required
+                    </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                      <label class="form-check-label">Taux Hébergement:</label>
+                      <input type="text" formControlName="rateHebergement" class="form-control">
+                      <span class="text-danger" *ngIf="newTauxGroup.controls['rateHebergement'].touched
+                        && newTauxGroup.controls['rateHebergement'].errors
+                        && newTauxGroup.controls['rateHebergement'].errors!['required']">
+                        Matricule is required
+                    </span>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                      <label class="form-check-label">Taux Hébergement Directeur:</label>
+                      <input type="text" formControlName="rateHebergementDirec" class="form-control">
+                      <span class="text-danger" *ngIf="newTauxGroup.controls['rateHebergementDirec'].touched
+                        && newTauxGroup.controls['rateHebergementDirec'].errors
+                        && newTauxGroup.controls['rateHebergementDirec'].errors!['required']">
+                        Matricule is required
+                    </span>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                      <label class="form-check-label">Taux Kilométrique:</label>
+                      <input type="text" formControlName="rateKilometrique" class="form-control">
+                      <span class="text-danger" *ngIf="newTauxGroup.controls['rateKilometrique'].touched
+                        && newTauxGroup.controls['rateKilometrique'].errors
+                        && newTauxGroup.controls['rateKilometrique'].errors!['required']">
+                        Matricule is required
+                    </span>
+                    </div>
+
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group form-group-default">
+                      <label class="form-check-label">Taux Kilométrique Directeur:</label>
+                      <input type="text" formControlName="rateKilometriqueDirec" class="form-control">
+                      <span class="text-danger" *ngIf="newTauxGroup.controls['rateKilometriqueDirec'].touched
+                        && newTauxGroup.controls['rateKilometriqueDirec'].errors
+                        && newTauxGroup.controls['rateKilometriqueDirec'].errors!['required']">
+                        Matricule is required
+                    </span>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-sm-12">
+                    <div class="form-group form-group-default">
+                      <label class="form-check-label">Taux Taxi:</label>
+                      <input type="text" formControlName="rateTaxi" class="form-control">
+                      <span class="text-danger" *ngIf="newTauxGroup.controls['rateTaxi'].touched
+                        && newTauxGroup.controls['rateTaxi'].errors
+                        && newTauxGroup.controls['rateTaxi'].errors!['required']">
+                        Matricule is required
+                    </span>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid pt-4">
+                <button  class="btn btn-primary">Save</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+</div>
+

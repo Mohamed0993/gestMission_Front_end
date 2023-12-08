@@ -1,0 +1,124 @@
+<ng-template #content let-modal>
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="modal-basic-title">DECOMPTE DE LIQUIDATION FRAIS DE DEPLACEMENT</h5>
+
+        <button type="button" class="btn-close" #closebtn aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="decompteFormGroup" (ngSubmit)="handleSaveDecompte()">
+          <div class="row">
+            <div class="col-lg-3">
+              <label >Nom:</label>
+              <input type="text" formControlName="personalName"  readonly="true" class="form-control">
+              <!--formControlName="personalName" -->
+            </div>
+            <div class="col-lg-3">
+              <label >Matricule:</label>
+              <input type="text"  formControlName="personalMatricule" readonly="true"  class="form-control">
+              <!--formControlName="personalMatricule"-->
+            </div>
+            <div class="col-lg-6">
+              <label >Ordre NR:</label>
+              <input type="text" formControlName="assignmentId" readonly="true" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label >Du:</label>
+              <input type="text" formControlName="assignmentDate" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-3">
+              <label >Destination:</label>
+              <input type="text"  readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-3">
+              <label >Date de départ:</label>
+              <input type="text" formControlName="assignementDateOfDeparture" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-3">
+              <label >Date de retour:</label>
+              <input type="text" formControlName="assignmentDateReturn" readonly="true" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label >Moyen de Transport</label>
+              <input type="text" formControlName="movingMeans" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-2">
+              <label >Distance Trajet (A/R) </label>
+              <input type="text" formControlName="distance" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-1">
+              <label > - </label>
+              <input type="text" formControlName="distanceAdded" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-2">
+              <label >Taux Kilométrique </label>
+              <input type="text" formControlName="tauxKilo" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-2">
+              <label >Taux Autoroute </label>
+              <input type="text" formControlName="tauxAuto" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-2">
+              <label >Nbre de Ticket péage </label>
+              <input type="text" formControlName="nbrePeage" readonly="true" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <label >Taux Petit déjeuner </label>
+              <input type="text" formControlName="tauxPetiDej" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-4">
+              <label >Taux Déjeuner et Diner </label>
+              <input type="text" formControlName="tauxDejetDin" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-4">
+              <label >Taux Hébergement </label>
+              <input type="text" formControlName="tauxHeberj" readonly="true" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <label >Petit déjeuner </label>
+              <input type="text" formControlName="nbreDej" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-4">
+              <label >Déjeuner et Diner </label>
+              <input type="text" formControlName="nbrePetitDej" readonly="true" class="form-control">
+            </div>
+            <div class="col-lg-4">
+              <label >Hébergement (Nuitée)</label>
+              <input type="text" formControlName="nbreHebergement" readonly="true" class="form-control">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-3 offset-6">
+              <div class="form-group">
+                <label >Total </label>
+                <input type="text" [value]="amount"  formControlName="amount" readonly="true" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-2 pt-4">
+              <a (click)="calcul()"  class="btn btn-info" >Calculer</a>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-lg-8  d-grid">
+              <button  type="submit"   class="btn btn-primary">Confirmer</button>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button style="display: none" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+</ng-template>
+

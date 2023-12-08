@@ -1,0 +1,119 @@
+<div class="container-fluid">
+  <ng-container *ngIf="town | async as listTowns; else failureOrLading">
+    <!-----Page Heading------->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Gestion des Villes</h1>
+      <a class="d-none d-sm-inline-block btn btn-primary shadow-sm" href="#">
+        <i class="fas fa-download fa-sm text-white-50"></i>
+        Generate Report
+      </a>
+    </div>
+
+    <!-----------Content row ---------->
+    <div class="row">
+      <div class="col-xl-7 col-lg-6">
+        <div *ngIf="errorMessage" class="text-danger">
+          {{errorMessage }}
+        </div>
+        <div class="card shadow mb-4" *ngIf="town">
+
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary" >Liste des villes</h6>
+          </div>
+          <div class="card-body" >
+            <div *ngIf="searchFormGroup">
+
+              <form action="" [formGroup]="searchFormGroup" (ngSubmit)="handleSearchTown()">
+                <div class="input-group">
+                  <label class="input-group-text" >Keyword :</label>
+                  <input type="text" formControlName="keyword" class="form-control">
+                  <button class="btn btn-info">
+                    <i class="fas fa-search fa-sm"></i>
+
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Distance</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let t of town | async">
+                <td>{{t.townId}}</td>
+                <td>{{t.townName}}</td>
+                <td>{{t.townDistance}}</td>
+                <td>
+                  <button (click)="handleDeleteTown(t)" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-xl-5 col-lg-6">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Nouvelle ville</h6></div>
+          <div class="card-body ">
+            <form [formGroup]="newTownFormGroup" (ngSubmit)="handleSaveTown()">
+              <div class="mb-2">
+                <label class="form-check-label">Nom:</label>
+                <input type="text" formControlName="townName" class="form-control">
+                <span class="text-danger"
+                  *ngIf="newTownFormGroup.controls['townName'].touched
+                  && newTownFormGroup.controls['townName'].errors
+                  && newTownFormGroup.controls['townName'].errors!['required']">
+                  Name is required
+                </span>
+              </div>
+              <div class="mb-2">
+                <label  class="form-check-label">Distance:</label>
+                <input type="text" formControlName="townDistance" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label  class="form-check-label">Taux Vehicule:</label>
+                <input type="text" formControlName="tauxAuto" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label  class="form-check-label">Taux Transport Commun:</label>
+                <input type="text" formControlName="tauxCTM" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label  class="form-check-label">Taux Train:</label>
+                <input type="text" formControlName="tauxTrain" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label  class="form-check-label">Taux Avion:</label>
+                <input type="text" formControlName="tauxAvion" class="form-control">
+              </div>
+
+              <button [disabled]="!newTownFormGroup.valid" class="btn btn-primary">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #failureOrLading class="text-danger">
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{errorMessage}}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      Loading ...
+    </ng-template>
+  </ng-template>
+
+</div>
